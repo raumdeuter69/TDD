@@ -7,7 +7,7 @@ function add(nums)
 
     let delimiter = /,|\n|;/;
     if (nums.startsWith("//")) {
-        const parts = nums.split("\n"); 
+        const parts = nums.split("\n");
         delimiter = new RegExp(parts[0].slice(2));
         nums = parts[1];
     }
@@ -15,7 +15,7 @@ function add(nums)
         throw new Error("Invalid input: single number with delimiter");
     }
     nums=nums.split(delimiter).map((num)=>{
-        return parseInt(num,10);
+        return num<=1000?parseInt(num,10) : 0;
     });
     const negatives = nums.filter((num) => num < 0);
 
