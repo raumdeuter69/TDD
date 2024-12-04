@@ -28,3 +28,10 @@ describe('Should support multiple delimiters other than comma and throw error wh
         expect(add("//;\n10;20")).toBe(30);
     });
 });
+
+describe('Should handle custom delimiters and negative numbers', () => {
+    it('should throw an error when negative numbers are passed', () => {
+        expect(() => add("1,-2,3")).toThrow("negatives not allowed: -2");
+        expect(() => add("//;\n1;-2;3;-4")).toThrow("negatives not allowed: -2, -4");
+    });
+});
