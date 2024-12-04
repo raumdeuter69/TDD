@@ -4,7 +4,18 @@ function add(nums)
     {
         return 0;
     }
-    nums=nums.split(",").map((num)=>{
+
+    let delimiter = /,|\n|;/;
+    if (nums.startsWith("//")) {
+        const parts = nums.split("\n");
+        delimiter = new RegExp(parts[0].slice(2));
+        nums = parts[1];
+    }
+
+    if (/^\d+[\n,;]$/.test(nums)) {
+        throw new Error("Invalid input: single number with delimiter");
+    }
+    nums=nums.split(delimiter).map((num)=>{
         return parseInt(num,10);
     });
     return nums.reduce((acc,curr)=>{
