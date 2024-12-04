@@ -35,3 +35,10 @@ describe('Should handle custom delimiters and negative numbers', () => {
         expect(() => add("//;\n1;-2;3;-4")).toThrow("negatives not allowed: -2, -4");
     });
 });
+
+describe('Should ignore numbers greater than 1000', () => {
+    it('should just skip when numbers greater than 1000 are passed', () => {
+        expect( add("10001")).toBe(0);
+        expect(add("10001,3")).toBe(3);
+    });
+});
