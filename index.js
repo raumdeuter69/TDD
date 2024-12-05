@@ -10,7 +10,9 @@ function add(nums)
         const parts = nums.split("\n");
         const dlPart = parts[0].slice(2);
         if (dlPart.startsWith("[") && dlPart.endsWith("]")) {
-            delimiter = new RegExp(dlPart.slice(1, -1).replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'));
+            console.log(dlPart.match(/\[([^\]]+)\]/g));
+            const dls = dlPart.match(/\[([^\]]+)\]/g).map(d => d.slice(1, -1));
+            delimiter = new RegExp(dls.map(d => d.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')).join("|"));
         } else {
             delimiter = new RegExp(dlPart.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'));
         }
