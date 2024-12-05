@@ -5,13 +5,18 @@ function add(nums)
         return 0;
     }
 
-    let delimiter = /,|\n|;/;
+    let delimiter = /,|\n|;|\*|#/;
     if (nums.startsWith("//")) {
         const parts = nums.split("\n");
-        delimiter = new RegExp(parts[0].slice(2));
+        const dlPart = parts[0].slice(2);
+        if (dlPart.startsWith("[") && dlPart.endsWith("]")) {
+            delimiter = new RegExp(dlPart.slice(1, -1).replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'));
+        } else {
+            delimiter = new RegExp(dlPart.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'));
+        }
         nums = parts[1];
     }
-    if (/^\d+[\n,;]$/.test(nums)) {
+    if (/^\d+[\n,;*#]$/.test(nums)) {
         throw new Error("Invalid input: single number with delimiter");
     }
     nums=nums.split(delimiter).map((num)=>{
